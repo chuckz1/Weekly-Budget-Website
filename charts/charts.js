@@ -24,6 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		var filtered = window.filterByCategory(allExpenses, category);
 		filtered = window.filterByPeriod(filtered, period, refDate);
 		renderList(filtered);
+		// Also update grand total in case chart is not visible
+		var grandTotalElem = document.getElementById("grand-total");
+		var grandTotal = filtered.reduce(function (sum, exp) {
+			return sum + (parseFloat(exp.amount) || 0);
+		}, 0);
+		if (grandTotalElem) grandTotalElem.textContent = grandTotal.toFixed(2);
 		if (window.renderCharts) window.renderCharts(filtered);
 	}
 
