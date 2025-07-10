@@ -13,12 +13,29 @@
 		<h1>Expense Charts</h1>
 		<div id="charts-content">
 			<h2>Saved Expenses</h2>
+			<div class="filters">
+				<label for="category-filter">Category:</label>
+				<select id="category-filter">
+					<option value="All">All</option>
+				</select>
+				<label for="period-filter">Period:</label>
+				<select id="period-filter">
+					<option value="week">Week</option>
+					<option value="month">Month</option>
+					<option value="year">Year</option>
+				</select>
+				<input type="date" id="reference-date" />
+				<button id="apply-filters">Apply Filters</button>
+			</div>
+			<canvas id="expenses-chart" width="400" height="200"></canvas>
 			<ul id="expenses-list">
 				<!-- Expenses will be listed here -->
 			</ul>
 		</div>
 	</div>
 	<script src="../scripts/storage.js"></script>
+	<script src="filters.js"></script>
+	<script src="charts-render.js"></script>
 	<script src="charts.js"></script>
 </body>
 
