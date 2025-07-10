@@ -7,12 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		var select = document.getElementById("category-filter");
 		if (!select) return;
 		select.innerHTML = '<option value="All">All</option>';
-		categories.forEach(function (cat) {
-			var opt = document.createElement("option");
-			opt.value = cat;
-			opt.textContent = cat;
-			select.appendChild(opt);
-		});
+		if (Array.isArray(categories)) {
+			categories.forEach(function (cat) {
+				var opt = document.createElement("option");
+				opt.value = cat;
+				opt.textContent = cat;
+				select.appendChild(opt);
+			});
+		}
 	}
 
 	function applyFiltersAndRender() {
@@ -58,9 +60,19 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 	}
 
-	document
-		.getElementById("apply-filters")
-		.addEventListener("click", function () {
-			applyFiltersAndRender();
+	// Auto-update charts when filter settings change
+	["category-filter", "period-filter", "reference-date"].forEach(function (id) {
+		var el = document.getElementById(id);
+		if (el) {
+			el.addEventListener("change", applyFiltersAndRender);
+		}
+	});
+
+	// Back to main form button
+	var backBtn = document.getElementById("back-to-main");
+	if (backBtn) {
+		backBtn.addEventListener("click", function () {
+			window.location.href = "../index.html";
 		});
+	}
 });
